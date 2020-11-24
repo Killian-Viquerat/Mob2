@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:quiz/models/question.dart';
 
+import 'dart:developer';
 class QuizSession with ChangeNotifier {
   var _questions = [
     Question("2 + 2", ["1", "2", "4"], "4", "come on"),
@@ -10,10 +11,21 @@ class QuizSession with ChangeNotifier {
 
   var questionPassed = 0; 
   var _currentQuestionIndex = 0;
+  bool show = false;
 
   Question get currentQuestion => _questions[_currentQuestionIndex];
   Question get lastQuestion => _questions[_questions.length-1];
   int get length => _questions.length;
+
+  void reset() {
+    questionPassed = 0;
+    notifyListeners();
+  }
+
+  void showhint(){
+    show = !show;
+    notifyListeners();
+  }
 
   void nextQuestion() {
     _currentQuestionIndex = (_currentQuestionIndex + 1) % _questions.length;

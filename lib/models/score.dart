@@ -8,4 +8,7 @@ class Score {
   void add() {
     score += 1;
   }
+  void reset(){
+    score= 0;
+  }
 }
