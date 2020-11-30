@@ -10,6 +10,7 @@ class QuizSession with ChangeNotifier {
 
   var questionPassed = 0; 
   var _currentQuestionIndex = 0;
+  var score = 0;
 
   Question get currentQuestion => _questions[_currentQuestionIndex];
   Question get lastQuestion => _questions[_questions.length-1];
@@ -22,6 +23,10 @@ class QuizSession with ChangeNotifier {
   }
 
   bool checkAnswer(String answer) {
-    return _questions[_currentQuestionIndex].isCorrectAnswer(answer);
+     if(_questions[_currentQuestionIndex].isCorrectAnswer(answer)){
+       score++;
+       return true;
+     }
+     return false;
   }
 }

@@ -1,14 +1,12 @@
-import 'dart:io';
+//import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:quiz/models/quiz_session.dart';
 import 'package:quiz/models/question.dart';
-import 'package:quiz/models/score.dart';
 
 class GameScreen extends StatelessWidget {
-  Score score = new Score();
   @override
   Widget build(BuildContext context) {
     
@@ -30,9 +28,7 @@ class GameScreen extends StatelessWidget {
       return ElevatedButton(
         onPressed: () {
           var session = Provider.of<QuizSession>(context, listen: false);
-          if (session.checkAnswer(answer)) {
-              score.add();
-          }
+          session.checkAnswer(answer);
           session.nextQuestion();
         },
         child: SizedBox(
@@ -43,7 +39,7 @@ class GameScreen extends StatelessWidget {
     });
     var session = Provider.of<QuizSession>(context, listen: false);
     if(session.questionPassed == session.length){
-      return buildScore(context, score, session);
+      return buildScore(context, session);
     }else{
       return Center(
         child: Column(
@@ -57,11 +53,11 @@ class GameScreen extends StatelessWidget {
     }
   }
 
-  Widget buildScore(BuildContext context,Score score,QuizSession session){
+  Widget buildScore(BuildContext context,QuizSession session){
     return Center(
       child: Column(
         children: <Widget>[
-          Text("Score:" + score.score.toString() + "/" + session.length.toString())
+          Text("Score:" + session.score.toString() + "/" + session.length.toString())
         ],
         )
      );
